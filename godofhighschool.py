@@ -4,6 +4,9 @@ import feedparser
 import praw
 import time
 import os
+import requests
+from bs4 import BeautifulSoup
+from bs4 import SoupStrainer
 
 naver_page = "http://comic.naver.com/webtoon/list.nhn?titleId=318995&weekday=fri"
 
@@ -14,6 +17,28 @@ def get_latest_scan():
     for article in scan_feed.entries[:1]:
         return article.link + "?all"
 
+def get_latest_raw():
+    raw_link = "http://comic.naver.com/webtoon/detail.nhn?titleId=318995&no=142&weekday=fri"
+    print("Getting latest raw")
+    response = requests.get(raw_link)
+    if response.status_code == 200:
+        raw_html = response.text
+        soup = BeautifulSoup(raw_html)
+        links=[]
+        for link in soup.find_all('div', class_='item'):
+            try:
+                raw_link = link.find('a')['href']
+            except:
+                None
+            links.append(raw_link)
+        actual_link = "http://comic.naver.com" + links[-1]
+        return actual_link
+    else:
+        print("Couldn't get latest web link")
+        exit()
+
+
+
 def get_last_submission(r, name):
     bot = praw.objects.Redditor(r,user_name=name)
     submissions = bot.get_submitted()
@@ -22,8 +47,8 @@ def get_last_submission(r, name):
 def start():
     # make variables
     scan = get_latest_scan()
-    raw = "http://comic.naver.com/webtoon/detail.nhn?titleId=318995&no=142&weekday=fri"
-    subreddit_name = "gohs"
+    raw = get_latest_raw()
+    subreddit_name = "godofhighschool"
     chapter = scan.replace('http://mngacow.com/the-god-of-high-school/', '').replace('/?all', '')
     submission_title = "God of High School - %s" % chapter
     submission_text = "RAW: %s\n\n**Please open the raw in a new tab to promote the author**\n----\nSCAN: %s" % (raw, scan)
