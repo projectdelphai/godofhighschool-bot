@@ -14,8 +14,13 @@ def get_latest_scan():
     mngcow_feed_link = "http://mngacow.com/manga-rss/the-god-of-high-school/"
     print("Getting new scan")
     scan_feed = feedparser.parse(mngcow_feed_link)
+    article = None
     for article in scan_feed.entries[:1]:
+        print(article.link + "?all")
         return article.link + "?all"
+    if article is None:
+        print("Couldn't get latest scan")
+        exit()
 
 def get_latest_raw():
     raw_link = "http://comic.naver.com/webtoon/detail.nhn?titleId=318995&no=142&weekday=fri"
@@ -32,10 +37,10 @@ def get_latest_raw():
                 None
             links.append(raw_link)
         actual_link = "http://comic.naver.com" + links[-1]
+        print(actual_link)
         return actual_link
-    else:
-        print("Couldn't get latest web link")
-        exit()
+    print("Couldn't get latest web link")
+    exit()
 
 
 
