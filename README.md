@@ -1,6 +1,5 @@
 godofhighschool-bot
 ================
-Reuben Castelino - projectdelphai@gmail.com
 
 Description
 --------------
@@ -8,6 +7,14 @@ A simple reddit bot that works with the [/r/godofhighschool](http://www.reddit.c
 
 Installation/Development Info
 --------------
+It is hosted on heroku and requires a password which is set as an environment variable. To work with this repo, you'll need to create a subreddit similar to /r/godofhighschool and create your own account to use, rather than the bot used here.
+
+The dependencies are:
+
+ 1. beautiful soup 4
+ 1. feedparser
+ 1. praw
+ 1. requests
 
 Contributing
 -------------
