@@ -39,7 +39,11 @@ def get_latest_raw():
         actual_link = "http://comic.naver.com" + links[-1]
         print(actual_link)
         return actual_link
+    else:
+        print(response.status_code)
+        r.close()
     print("Couldn't get latest web link")
+    r.close()
     exit()
 
 
