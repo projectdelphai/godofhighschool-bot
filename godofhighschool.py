@@ -53,8 +53,7 @@ def start():
     # make variables
     scan = get_latest_scan()
     raw = get_latest_raw()
-    #subreddit_name = "godofhighschool"
-    subreddit_name = "gohs"
+    subreddit_name = "godofhighschool"
     chapter = scan.replace('http://thcmpny.com/naver.html#66,', '')
     submission_title = "God of High School - %s" % chapter
     submission_text = "RAW: %s\n\n**Please open the raw in a new tab to promote the author**\n----\nSCAN: %s" % (raw, scan)
